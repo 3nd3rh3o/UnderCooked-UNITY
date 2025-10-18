@@ -19,8 +19,8 @@ public class SeqEnd : Action
         }
     }
 
-    public bool IsDone()
+    public bool IsDone(BaseAgent agent)
     {
-        throw new System.NotImplementedException();
+        return true;
     }
 }

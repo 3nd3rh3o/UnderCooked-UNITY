@@ -1,5 +1,5 @@
 public interface Action
 {
     public void Execute(BaseAgent agent);
-    public bool IsDone();
+    public bool IsDone(BaseAgent agent);
 }

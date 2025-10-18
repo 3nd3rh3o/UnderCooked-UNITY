@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14cf269e6afb5644e8b2d4fa8ff22feb, type: 3}
+  m_Name: Tomato
+  m_EditorClassIdentifier: Assembly-CSharp::Recipe
+  result: {fileID: 11400000, guid: 24f67c5e8151c554a9ac9448e82d292d, type: 2}
+  inputs: []
+  stand: {fileID: 11400000, guid: a3e31d272a346014a9ed2e7b5f710169, type: 2}

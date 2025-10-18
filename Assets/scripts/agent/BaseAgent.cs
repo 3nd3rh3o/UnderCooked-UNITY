@@ -8,7 +8,7 @@ public class BaseAgent : MonoBehaviour
 
     void Start()
     {
-
+        environment.goals[0].taskTree = new TaskTree(environment.knownRecipes, environment.goals[0].item);
     }
 
     void Update()
@@ -19,7 +19,7 @@ public class BaseAgent : MonoBehaviour
         {
             currentAction = null;
             TaskTree.Node leaf = SelectTaskInGoal();
-            if (leaf != null) return;
+            if (leaf == null) return;
             BuildActionSeq(leaf);
         }
         currentAction?.Execute(this);

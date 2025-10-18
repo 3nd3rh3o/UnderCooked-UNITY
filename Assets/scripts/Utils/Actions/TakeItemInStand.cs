@@ -16,7 +16,7 @@ public class TakeItemInStand : Action
         // Logic to take the item from the stand and give it to the agent.
     }
 
-    public bool IsDone()
+    public bool IsDone(BaseAgent agent)
     {
         throw new System.NotImplementedException();
     }

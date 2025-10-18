@@ -16,7 +16,7 @@ public class DropItemInWorld : Action
         // Logic to drop the item in the world at the agent's current position
     }
 
-    public bool IsDone()
+    public bool IsDone(BaseAgent agent)
     {
         throw new System.NotImplementedException();
     }

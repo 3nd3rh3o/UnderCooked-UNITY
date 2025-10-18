@@ -14,6 +14,7 @@ public class TaskTree
         public Node(Recipe recipe, List<Recipe> knownRecipes)
         {
             nextNodes = new List<Node>();
+            this.recipe = recipe;
             foreach (Item i in recipe.inputs)
             {
                 Recipe r = getRecipeProducing(i, knownRecipes);
@@ -27,6 +28,22 @@ public class TaskTree
                 return nextNodes[0];
             else
                 return nextNodes[0].GetLeafTodo();
+        }
+
+        public void PopNode(Node node)
+        {
+            foreach (Node n in nextNodes)
+            {
+                if (n == node)
+                {
+                    nextNodes.Remove(n);
+                    return;
+                }
+                else
+                {
+                    n.PopNode(node);
+                }
+            }
         }
     }
     
@@ -63,5 +80,18 @@ public class TaskTree
             return root;
         else
             return root.GetLeafTodo();
+    }
+
+
+    // Pop la node de l'arbre.
+    public void PopNode(Node node)
+    {
+        // Si c'est la racine.
+        if (node == root)
+        {
+            root = null;
+            return;
+        }
+        root.PopNode(node);
     }
 }
