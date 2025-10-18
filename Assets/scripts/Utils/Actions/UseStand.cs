@@ -11,4 +11,9 @@ public class UseStand : Action
     {
 
     }
+
+    public bool IsDone()
+    {
+        throw new System.NotImplementedException();
+    }
 }

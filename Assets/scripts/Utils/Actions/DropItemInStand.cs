@@ -14,4 +14,9 @@ public class DropItemInStand : Action
     {
         // Logic to take the item
     }
+
+    public bool IsDone()
+    {
+        throw new System.NotImplementedException();
+    }
 }

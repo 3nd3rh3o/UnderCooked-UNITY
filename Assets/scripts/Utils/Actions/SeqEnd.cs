@@ -18,4 +18,9 @@ public class SeqEnd : Action
             item.UnReserve();
         }
     }
+
+    public bool IsDone()
+    {
+        throw new System.NotImplementedException();
+    }
 }

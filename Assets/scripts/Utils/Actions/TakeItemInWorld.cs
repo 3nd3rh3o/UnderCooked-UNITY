@@ -14,4 +14,9 @@ public class TakeItemInWorld : Action
     {
         // Logic to take the item from the world and add it to the agent's inventory.
     }
+
+    public bool IsDone()
+    {
+        throw new System.NotImplementedException();
+    }
 }

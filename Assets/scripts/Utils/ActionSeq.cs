@@ -52,7 +52,7 @@ public class ActionSeq
     public ActionSeq(TaskTree.Node node, Environment env)
     {
         actions = new List<Action>();
-        
+
         // ETAPE 1 : Dire au monde => Je veux aller sur tel stand.
         // ETAPE 2 : Pour chaque item(Dabbord sur une table ou par terre, puis dans les slots out des stands), dire au monde => Je vais les prendres.
         // ETAPE 3 : Pour chacun, ajouter action movetoitem + pickupitem + moveToStand + putItemInStand.
@@ -77,7 +77,7 @@ public class ActionSeq
             {
                 if (item.Item2.ItemData == input && !item.Item2.IsReserved())
                 {
-                    itemsToGet.Add(new (item.Item2, true, null));
+                    itemsToGet.Add(new(item.Item2, true, null));
                     found = true;
                     break;
                 }
@@ -87,7 +87,7 @@ public class ActionSeq
             {
                 if (item.Item2.ItemData == input && !item.Item2.IsReserved())
                 {
-                    itemsToGet.Add(new (item.Item2, false, item.Item3));
+                    itemsToGet.Add(new(item.Item2, false, item.Item3));
                     break;
                 }
             }
@@ -115,8 +115,22 @@ public class ActionSeq
             actions.Add(new DropItemInStand(item, stand, env));
         }
         actions.Add(new UseStand(stand, node.recipe, env));
-        
+
 
         actions.Add(new SeqEnd(stand, itemsToGet.ConvertAll(t => t.Item1)));
+    }
+    
+
+    public void Execute(BaseAgent agent)
+    {
+        if (actions == null || actions.Count == 0)
+            return;
+        Action current = actions[0];
+        current.Execute(agent);
+        // Si l'action est finie, on la retire de la liste.
+        if (current.IsDone())
+        {
+            actions.RemoveAt(0);
+        }
     }
 }

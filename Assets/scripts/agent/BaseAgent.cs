@@ -22,6 +22,7 @@ public class BaseAgent : MonoBehaviour
             if (leaf != null) return;
             BuildActionSeq(leaf);
         }
+        currentAction?.Execute(this);
     }
 
     // Overide moi pour changer la facon de selectionner la tache a faire.

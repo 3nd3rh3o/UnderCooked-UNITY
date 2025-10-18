@@ -11,4 +11,9 @@ public class MoveToStand : Action
     {
         // Logic to move the agent to the stand's position.
     }
+
+    public bool IsDone()
+    {
+        throw new System.NotImplementedException();
+    }
 }
