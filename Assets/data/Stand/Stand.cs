@@ -7,4 +7,5 @@ public class Stand : ScriptableObject
     public Stand container;
     public bool isContainer;
     public float processing_time;
+    public bool isGenerator;
 }
