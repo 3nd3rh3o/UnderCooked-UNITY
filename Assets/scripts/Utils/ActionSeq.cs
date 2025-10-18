@@ -83,11 +83,9 @@ public class ActionSeq
                 actions = new List<Action>();
                 actions.Add(new MoveToStand(item.Item3, item.Item1, env));
                 actions.Add(new TakeItemInStand(item.Item2, item.Item3, env));
-                // TODO get delivery stand.
-                //      move to it
-                //      put item in stand
-                //      Stand event => Remove goal from env.
-
+                actions.Add(new MoveToStand(env.deliveryStands[0], env.deliveryStands[0].transform, env));
+                actions.Add(new DropItemInStand(item.Item2, env.deliveryStands[0], env));
+                actions.Add(new SeqEnd(env.deliveryStands[0], new List<ItemInstance> { item.Item2 }));
                 return;
 
             }
