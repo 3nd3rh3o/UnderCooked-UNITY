@@ -41,15 +41,21 @@ public class StandInstance : MonoBehaviour
         env.PopNode(node);
     }
 
+    public void RemoveItem(ItemInstance item)
+    {
+        output = null;
+        env.itemsOnStands.RemoveAll(i => i.Item2 == item && i.Item3 == this && i.Item1 == transform);
+    }
+
 
     // MONO METHODS DONT TOUCH
-    void Start()
+    public virtual void Start()
     {
         env.stands.Add(this);
     }
 
 
-    void OnDestroy()
+    public virtual void OnDestroy()
     {
         env.stands.Remove(this);
     }

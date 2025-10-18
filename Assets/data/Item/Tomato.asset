@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84e1285d74515b74ba9e87a8782ed555, type: 3}
   m_Name: Tomato
   m_EditorClassIdentifier: Assembly-CSharp::Item
-  name: 
-  mesh: {fileID: 0}
+  ItemGOPrefab: {fileID: 959795406720004666, guid: be5325fa6a405834ca025b95118dba6d, type: 3}

@@ -1,4 +1,4 @@
-
+using UnityEngine;
 
 public class TakeItemInStand : Action
 {
@@ -13,11 +13,21 @@ public class TakeItemInStand : Action
 
     public void Execute(BaseAgent agent)
     {
+        if (agent.transform.childCount > 0)
+        {
+            return;
+        }
         // Logic to take the item from the stand and give it to the agent.
+        item.OnPickupFromStand(agent);
+        stand.RemoveItem(item);
     }
 
     public bool IsDone(BaseAgent agent)
     {
-        throw new System.NotImplementedException();
+        if (agent.transform.childCount > 0)
+        {
+            return true;
+        }
+        return false;
     }
 }

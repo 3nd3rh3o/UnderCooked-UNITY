@@ -12,6 +12,7 @@ public class Environment : ScriptableObject
     public List<Tuple<Transform, ItemInstance, StandInstance>> itemsOnStands = new();
     public List<StandInstance> stands;
     public List<Recipe> knownRecipes;
+    public List<StandInstance> deliveryStands;
 
 
     public void PopNode(TaskTree.Node node)
