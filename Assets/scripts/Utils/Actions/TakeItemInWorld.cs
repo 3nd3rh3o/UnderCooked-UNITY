@@ -1,4 +1,5 @@
 
+using Unity.AI.Navigation;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -22,6 +23,7 @@ public class TakeItemInWorld : Action
         transform.localPosition = Vector3.forward * 0.5f;
         transform.SetParent(agent.transform, false);
         env.itemInWorld.RemoveAll(i => i.Item2 == item && i.Item1 == transform);
+        agent.navSurf.GetComponent<NavMeshSurface>().BuildNavMesh();
     }
 
     public bool IsDone(BaseAgent agent)

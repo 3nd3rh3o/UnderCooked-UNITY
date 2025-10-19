@@ -1,5 +1,6 @@
 
 
+using Unity.AI.Navigation;
 using UnityEngine;
 
 public class DropItemInWorld : Action
@@ -22,6 +23,7 @@ public class DropItemInWorld : Action
         itemTransform.localPosition = Vector3.forward;
         env.itemInWorld.Add(new (itemTransform, item));
         agent.transform.DetachChildren();
+        agent.navSurf.GetComponent<NavMeshSurface>().BuildNavMesh();
     }
 
     public bool IsDone(BaseAgent agent)

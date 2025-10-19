@@ -26,7 +26,7 @@ public class StandInstance : MonoBehaviour
     {
         if (processingTimer > 0)
         {
-            processingTimer -= Time.deltaTime;
+            processingTimer -= Time.fixedDeltaTime;
         }
         else
             OnProcessingComplete(recipe);

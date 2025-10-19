@@ -23,7 +23,7 @@ public class BaseAgent : MonoBehaviour
         });
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (environment == null)
             return;
