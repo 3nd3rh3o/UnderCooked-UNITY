@@ -180,10 +180,19 @@ public class ActionSeq
             StandInstance superStand = env.stands.Find(s => s.standData == stand.standData.containerFor);
             actions.Add(new MoveToStand(superStand, superStand.transform, env));
             actions.Add(new PutContainer(stand, superStand, env));
+            actions.Add(new UseStand(stand, node, env));
+            actions.Add(new MoveToStand(stand, standTransform, env));
+            actions.Add(new TakeContainer(stand, standTransform, env));
+            actions.Add(new DropContainer(stand, env));
+        }
+        else
+        {
+            actions.Add(new UseStand(stand, node, env));
         }
 
 
-        actions.Add(new UseStand(stand, node, env));
+            
+
 
         actions.Add(new SeqEnd(stand, itemsToGet.ConvertAll(t => t.Item1), stand.output));
     }
