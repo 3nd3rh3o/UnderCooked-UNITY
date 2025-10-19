@@ -92,6 +92,17 @@ public class TaskTree
             root = null;
             return;
         }
-        root.PopNode(node);
+        foreach (Node n in root.nextNodes)
+        {
+            if (n == node)
+            {
+                root.nextNodes.Remove(n);
+                return;
+            }
+            else
+            {
+                n.PopNode(node);
+            }
+        }
     }
 }

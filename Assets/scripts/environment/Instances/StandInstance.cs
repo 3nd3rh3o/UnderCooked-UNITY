@@ -18,6 +18,7 @@ public class StandInstance : MonoBehaviour
     public void StartProcessing(TaskTree.Node node)
     {
         processingTimer = standData.processing_time;
+        this.node = node;
         // need player ? handle case.
     }
 

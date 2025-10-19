@@ -8,7 +8,7 @@ public class BaseAgent : MonoBehaviour
 
     void Start()
     {
-        environment.goals = new (){new Goal(environment.knownRecipes[0].result, 100, null, environment)};
+        environment.goals = new (){new Goal(environment.knownRecipes[1].result, 100, null, environment)};
 
         environment.goals[0].taskTree = new TaskTree(environment.knownRecipes, environment.goals[0].item);
     }
