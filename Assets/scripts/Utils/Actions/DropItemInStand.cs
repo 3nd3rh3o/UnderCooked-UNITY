@@ -20,7 +20,15 @@ public class DropItemInStand : Action
             deliveryStand.OnReceiveItem(item, agent);
         }
         else
-           throw new System.NotImplementedException();
+        {
+            item.OnDropInStand(agent);
+            if (stand.inputs == null)
+            {
+                stand.inputs = new ();
+            }
+            stand.inputs.Add(item);
+            //env.itemsOnStands.Add(new(stand.transform, item, stand));
+        }
     }
 
     public bool IsDone(BaseAgent agent)

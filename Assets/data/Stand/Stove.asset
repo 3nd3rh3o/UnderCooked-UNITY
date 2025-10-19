@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2da6525901b828d4e998258296d969b6, type: 3}
-  m_Name: CuttingTable
+  m_Name: Stove
   m_EditorClassIdentifier: Assembly-CSharp::Stand
-  requireContainer: 0
+  requireContainer: 1
   container: {fileID: 0}
   isContainer: 0
-  processing_time: 1
+  processing_time: 0
   isGenerator: 0

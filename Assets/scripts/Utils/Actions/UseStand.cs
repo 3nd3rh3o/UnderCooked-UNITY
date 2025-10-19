@@ -26,6 +26,6 @@ public class UseStand : Action
         if (stand.standData.isGenerator)
             return true;
         else
-            throw new System.NotImplementedException();        
+            return stand.output != null;
     }
 }

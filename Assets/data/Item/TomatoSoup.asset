@@ -9,11 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2da6525901b828d4e998258296d969b6, type: 3}
-  m_Name: CuttingTable
-  m_EditorClassIdentifier: Assembly-CSharp::Stand
-  requireContainer: 0
-  container: {fileID: 0}
-  isContainer: 0
-  processing_time: 1
-  isGenerator: 0
+  m_Script: {fileID: 11500000, guid: 84e1285d74515b74ba9e87a8782ed555, type: 3}
+  m_Name: TomatoSoup
+  m_EditorClassIdentifier: Assembly-CSharp::Item
+  ItemGOPrefab: {fileID: 7148124926679735208, guid: d0d2ec46abbbdb5499ee4941eef7e8dd, type: 3}

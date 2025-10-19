@@ -4,11 +4,13 @@ public class SeqEnd : Action
 {
     private StandInstance stand;
     private List<ItemInstance> items;
+    private ItemInstance outputItemIfStandFull;
 
-    public SeqEnd(StandInstance stand, List<ItemInstance> items)
+    public SeqEnd(StandInstance stand, List<ItemInstance> items, ItemInstance outputItemIfStandFull)
     {
         this.stand = stand;
-        this.items = items;    
+        this.items = items;
+        this.outputItemIfStandFull = outputItemIfStandFull;
     }
     public void Execute(BaseAgent agent)
     {
@@ -17,6 +19,7 @@ public class SeqEnd : Action
         {
             item.UnReserve();
         }
+        outputItemIfStandFull?.UnReserve();
     }
 
     public bool IsDone(BaseAgent agent)

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2da6525901b828d4e998258296d969b6, type: 3}
-  m_Name: CuttingTable
+  m_Name: CookingPan
   m_EditorClassIdentifier: Assembly-CSharp::Stand
   requireContainer: 0
-  container: {fileID: 0}
-  isContainer: 0
-  processing_time: 1
+  containerFor: {fileID: 11400000, guid: b0d25582f4f45d74f99573c201812cce, type: 2}
+  isContainer: 1
+  processing_time: 10
   isGenerator: 0

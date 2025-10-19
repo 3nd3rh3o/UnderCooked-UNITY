@@ -6,7 +6,7 @@ using UnityEngine;
 public class ActionSeq
 {
     public List<Action> actions;
-
+    // TODO : Si il manque un item, ajouter une node a l'arbre des taches.
     public static bool CanBuild(TaskTree.Node node, Environment env)
     {
         // node.recipe.stand; => le stand
@@ -17,8 +17,7 @@ public class ActionSeq
         if (
             env.stands == null ||
             ((env.itemInWorld == null) &&
-            (env.itemsOnStands == null)) ||
-            node == null
+            (env.itemsOnStands == null))
         )
             return false;
         // Check si goal dans le monde, si oui, annuler la sequence et creer une sequence de livraison.
@@ -30,17 +29,23 @@ public class ActionSeq
             }
         }
 
-
+        if (node == null || node.recipe == null)
+            return false;
         foreach (StandInstance stand in env.stands)
         {
             if (stand.standData == node.recipe.stand && !stand.reserved)
             {
+                // TODO : recuperer les items pas trouvés.
                 int countItemsFound = 0;
+                List<Item> missingItems = new List<Item>();
+                missingItems.AddRange(node.recipe.inputs);
+
                 foreach (Tuple<Transform, ItemInstance> item in env.itemInWorld)
                 {
                     if (node.recipe.inputs.Contains(item.Item2.ItemData) && !item.Item2.IsReserved())
                     {
                         countItemsFound++;
+                        missingItems.Remove(item.Item2.ItemData);
                     }
                 }
                 foreach (Tuple<Transform, ItemInstance, StandInstance> item in env.itemsOnStands)
@@ -48,12 +53,18 @@ public class ActionSeq
                     if (node.recipe.inputs.Contains(item.Item2.ItemData) && !item.Item2.IsReserved())
                     {
                         countItemsFound++;
-                        
+                        missingItems.Remove(item.Item2.ItemData);
                     }
                 }
                 if (countItemsFound >= node.recipe.inputs.Count)
                 {
                     return true;
+                }
+                // Si il manque un item, ajouter une node a l'arbre des taches.
+                foreach (Item missingItem in missingItems)
+                {
+                    Recipe r = TaskTree.getRecipeProducing(missingItem, env.knownRecipes);
+                    node.nextNodes.Add(new TaskTree.Node(r, env.knownRecipes));
                 }
                 return false;
             }
@@ -70,7 +81,6 @@ public class ActionSeq
         }
         return false;
     }
-
     public ActionSeq(TaskTree.Node node, Environment env)
     {
         actions = new List<Action>();
@@ -85,7 +95,7 @@ public class ActionSeq
                 actions.Add(new TakeItemInStand(item.Item2, item.Item3, env));
                 actions.Add(new MoveToStand(env.deliveryStands[0], env.deliveryStands[0].transform, env));
                 actions.Add(new DropItemInStand(item.Item2, env.deliveryStands[0], env));
-                actions.Add(new SeqEnd(env.deliveryStands[0], new List<ItemInstance> { item.Item2 }));
+                actions.Add(new SeqEnd(env.deliveryStands[0], new List<ItemInstance> { item.Item2 }, null));
                 return;
 
             }
@@ -114,7 +124,7 @@ public class ActionSeq
             bool found = false;
             foreach (Tuple<Transform, ItemInstance> item in env.itemInWorld)
             {
-                if (item.Item2.ItemData == input && !item.Item2.IsReserved())
+                if (item.Item2.ItemData == input && !item.Item2.IsReserved() && !itemsToGet.Exists(t => t.Item1 == item.Item2))
                 {
                     itemsToGet.Add(new(item.Item2, true, null, item.Item1));
                     found = true;
@@ -124,7 +134,7 @@ public class ActionSeq
             if (found) continue;
             foreach (Tuple<Transform, ItemInstance, StandInstance> item in env.itemsOnStands)
             {
-                if (item.Item2.ItemData == input && !item.Item2.IsReserved())
+                if (item.Item2.ItemData == input && !item.Item2.IsReserved() && !itemsToGet.Exists(t => t.Item1 == item.Item2))
                 {
                     itemsToGet.Add(new(item.Item2, false, item.Item3, item.Item1));
                     break;
@@ -144,7 +154,7 @@ public class ActionSeq
             if (inWorld)
             {
                 actions.Add(new MoveToItem(item, itemTransform, env));
-                actions.Add(new TakeItemInWorld(item, env));
+                actions.Add(new TakeItemInWorld(item, itemTransform, env));
             }
             else
             {
@@ -155,12 +165,29 @@ public class ActionSeq
             actions.Add(new DropItemInStand(item, stand, env));
         }
         actions.Add(new MoveToStand(stand, standTransform, env));
+        // Si stand pas vide, on le vide.
+        if (stand.output != null && !stand.standData.isGenerator)
+        {
+            stand.output.Reserve();
+            actions.Add(new TakeItemInStand(stand.output, stand, env));
+            actions.Add(new DropItemInWorld(stand.output, env));
+            actions.Add(new MoveToStand(stand, standTransform, env));
+        }
+        // Si le stand est un container, on le met sur le superStand.
+        if (stand.standData.isContainer)
+        {
+            actions.Add(new TakeContainer(stand, standTransform, env));
+            StandInstance superStand = env.stands.Find(s => s.standData == stand.standData.containerFor);
+            actions.Add(new MoveToStand(superStand, superStand.transform, env));
+            actions.Add(new PutContainer(stand, superStand, env));
+        }
+
+
         actions.Add(new UseStand(stand, node, env));
 
-        actions.Add(new SeqEnd(stand, itemsToGet.ConvertAll(t => t.Item1)));
+        actions.Add(new SeqEnd(stand, itemsToGet.ConvertAll(t => t.Item1), stand.output));
     }
     
-
     public void Execute(BaseAgent agent)
     {
         if (actions == null || actions.Count == 0)

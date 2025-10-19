@@ -24,7 +24,7 @@ public class TaskTree
         // retourne la feuille gauche.
         public Node GetLeafTodo()
         {
-            if (nextNodes[0].nextNodes != null || nextNodes[0].nextNodes.Count == 0)
+            if (nextNodes[0].nextNodes == null || nextNodes[0].nextNodes.Count == 0)
                 return nextNodes[0];
             else
                 return nextNodes[0].GetLeafTodo();
@@ -61,7 +61,7 @@ public class TaskTree
     }
 
     // Retourne la recette qui produit l'objet fourni en paramêtres
-    protected static Recipe getRecipeProducing(Item target, List<Recipe> knownRecipes)
+    public static Recipe getRecipeProducing(Item target, List<Recipe> knownRecipes)
     {
         foreach (Recipe r in knownRecipes)
         {
@@ -76,6 +76,8 @@ public class TaskTree
     // (retourne la feuille gauche de l'arbre).
     public Node getLeafTodo()
     {
+        if (root == null)
+            return null;
         if (root.nextNodes == null || root.nextNodes.Count == 0)
             return root;
         else
@@ -105,4 +107,7 @@ public class TaskTree
             }
         }
     }
+
+
+    // TODO : AddNode. Si une node a été pop par une autre task, il faut pouvoir en remettre une.
 }

@@ -1,16 +1,26 @@
+using Unity.AI.Navigation;
 using UnityEngine;
+using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent))]
 public class BaseAgent : MonoBehaviour
 {
     public ActionSeq currentAction;
     public Environment environment;
     public TaskTree.Node currentNode;
 
+    public GameObject navSurf;
+
     void Start()
     {
-        environment.goals = new (){new Goal(environment.knownRecipes[1].result, 100, null, environment)};
+        environment.goals = new (){
+            new Goal(environment.possibleOutputs[0], 100, null, environment),
+            new Goal(environment.possibleOutputs[1], 100, null, environment)};
 
-        environment.goals[0].taskTree = new TaskTree(environment.knownRecipes, environment.goals[0].item);
+        environment.goals.ForEach(g =>
+        {
+            g.taskTree = new TaskTree(environment.knownRecipes, g.item);
+        });
     }
 
     void Update()
@@ -19,9 +29,9 @@ public class BaseAgent : MonoBehaviour
             return;
         if (currentAction == null || currentAction.actions.Count == 0)
         {
+            GetComponent<NavMeshAgent>().isStopped = true;
             currentAction = null;
             TaskTree.Node leaf = SelectTaskInGoal();
-            if (leaf == null) return;
             BuildActionSeq(leaf);
         }
         currentAction?.Execute(this);
@@ -38,6 +48,11 @@ public class BaseAgent : MonoBehaviour
             {
                 return goal.taskTree.getLeafTodo();
             }
+            else
+            {
+                if (goal.item != null)
+                    goal.taskTree = new TaskTree(environment.knownRecipes, goal.item);
+            }
         }
         return null;
     }
@@ -48,7 +63,7 @@ public class BaseAgent : MonoBehaviour
     {
         if (ActionSeq.CanBuild(node, environment))
         {
-            currentNode = node;            
+            currentNode = node;
             currentAction = new ActionSeq(node, environment);
         }
     }

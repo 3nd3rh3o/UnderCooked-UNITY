@@ -1,5 +1,7 @@
 
 
+using UnityEngine;
+
 public class DropItemInWorld : Action
 {
     private ItemInstance item;
@@ -13,11 +15,17 @@ public class DropItemInWorld : Action
 
     public void Execute(BaseAgent agent)
     {
-        // Logic to drop the item in the world at the agent's current position
+        Transform itemTransform = agent.transform.GetChild(0);
+        itemTransform.GetComponent<Rigidbody>().isKinematic = false;
+        itemTransform.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
+        itemTransform.GetComponent<Collider>().enabled = true;
+        itemTransform.localPosition = Vector3.forward;
+        env.itemInWorld.Add(new (itemTransform, item));
+        agent.transform.DetachChildren();
     }
 
     public bool IsDone(BaseAgent agent)
     {
-        throw new System.NotImplementedException();
+        return agent.transform.childCount == 0;
     }
 }

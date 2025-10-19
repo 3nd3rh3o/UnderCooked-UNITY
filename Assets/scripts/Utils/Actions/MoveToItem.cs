@@ -20,6 +20,7 @@ public class MoveToItem : Action
 
     public bool IsDone(BaseAgent agent)
     {
-        throw new System.NotImplementedException();
+        float distance = Vector3.Distance(agent.transform.position, transform.position);
+        return distance < 1.5f;
     }
 }

@@ -1,15 +1,16 @@
 
+using Unity.AI.Navigation;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class TakeItemInWorld : Action
+public class TakeContainer : Action
 {
-    private ItemInstance item;
+    private StandInstance stand;
     private Environment env;
     private Transform transform;
-    public TakeItemInWorld(ItemInstance item, Transform transform, Environment env)
+    public TakeContainer(StandInstance stand, Transform transform, Environment env)
     {
-        this.item = item;
+        this.stand = stand;
         this.env = env;
         this.transform = transform;
     }
@@ -21,7 +22,7 @@ public class TakeItemInWorld : Action
         transform.GetComponent<Collider>().enabled = false;
         transform.localPosition = Vector3.forward * 0.5f;
         transform.SetParent(agent.transform, false);
-        env.itemInWorld.RemoveAll(i => i.Item2 == item && i.Item1 == transform);
+        agent.navSurf.GetComponent<NavMeshSurface>().BuildNavMesh();
     }
 
     public bool IsDone(BaseAgent agent)
