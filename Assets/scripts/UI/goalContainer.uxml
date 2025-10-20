@@ -1,6 +1,6 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:VisualElement data-source-type="Goal, Assembly-CSharp" style="justify-content: space-between; align-items: stretch; flex-direction: column; flex-grow: 1; flex-shrink: 0;">
-        <ui:VisualElement name="Texture" style="align-self: stretch; justify-content: flex-start; background-image: url(&quot;project://database/Assets/data/dishes_render/TomatoSoup.png?fileID=2800000&amp;guid=71d8e5a373cd427419e712aa8fbd597d&amp;type=3#TomatoSoup&quot;); align-content: auto; align-items: stretch; -unity-background-scale-mode: stretch-to-fill; flex-shrink: initial; flex-grow: 1;" />
+        <ui:VisualElement name="Texture" style="align-self: stretch; justify-content: flex-start; background-image: url(&quot;project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=5866165431930342980&amp;guid=8637236cd797d2c46bb39944a7e09107&amp;type=3#Remove@2x&quot;); align-content: auto; align-items: stretch; -unity-background-scale-mode: stretch-to-fill; flex-shrink: initial; flex-grow: 1;" />
         <ui:ProgressBar title="ttt" />
     </ui:VisualElement>
 </ui:UXML>
