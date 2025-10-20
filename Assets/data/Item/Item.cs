@@ -5,4 +5,6 @@ using UnityEngine;
 public class Item : ScriptableObject
 {
     public GameObject ItemGOPrefab;
+    public Texture2D render;
+
 }
