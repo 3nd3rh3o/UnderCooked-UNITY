@@ -1,7 +1,4 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Template name="goalContainer" src="project://database/Assets/scripts/UI/goalContainer.uxml?fileID=9197481963319205126&amp;guid=a05e2e79b09deef42992cd056b568b1d&amp;type=3#goalContainer" />
-    <ui:VisualElement name="main" style="flex-grow: 1; align-items: flex-start; justify-content: flex-start; align-self: auto; align-content: flex-start; flex-wrap: nowrap; flex-direction: row; margin-top: 5px; margin-right: 5px; margin-bottom: 5px; margin-left: 5px;">
-        <ui:Instance template="goalContainer" style="width: 100px; height: 125px;" />
-        <ui:Instance template="goalContainer" style="height: 125px; width: 100px; flex-wrap: wrap; flex-direction: column-reverse;" />
-    </ui:VisualElement>
+    <Style src="project://database/Assets/scripts/UI/template.uss?fileID=7433441132597879392&amp;guid=a6449c45af0ec7f4daeb0a262199b229&amp;type=3#template" />
+    <ui:VisualElement name="main" style="flex-grow: 1; align-items: flex-start; justify-content: flex-start; align-self: auto; align-content: flex-start; flex-wrap: nowrap; flex-direction: row; margin-top: 5px; margin-right: 5px; margin-bottom: 5px; margin-left: 5px;" />
 </ui:UXML>

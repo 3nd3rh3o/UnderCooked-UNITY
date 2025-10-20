@@ -1,0 +1,6 @@
+:root {
+}
+
+TemplateContainer {
+    flex-shrink: 0;
+}

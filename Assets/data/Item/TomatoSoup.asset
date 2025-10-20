@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: TomatoSoup
   m_EditorClassIdentifier: Assembly-CSharp::Item
   ItemGOPrefab: {fileID: 7148124926679735208, guid: d0d2ec46abbbdb5499ee4941eef7e8dd, type: 3}
+  render: {fileID: 2800000, guid: bdc3cfa8ee370e44caa465088eb89492, type: 3}

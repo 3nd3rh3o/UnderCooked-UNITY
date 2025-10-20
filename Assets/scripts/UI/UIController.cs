@@ -18,9 +18,7 @@ public class UIController : MonoBehaviour
 
     void Start()
     {
-        root = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("root");
-        goalTemplate = Resources.Load<VisualTreeAsset>("goalTemplate");
-        env = FindFirstObjectByType<Environment>();
+        root = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("main");
 
         env.goals = new();
         AddGoal(100f, baseItem);
@@ -50,7 +48,7 @@ public class UIController : MonoBehaviour
                     goalInstance.Q<ProgressBar>().title = goal.item.name;
                     goalInstance.Q<ProgressBar>().highValue = goal.remainingTime;
                     goalInstance.Q<ProgressBar>().value = goal.remainingTime;
-                    goalInstance.Q<VisualElement>("Texture").style.backgroundImage = new StyleBackground(goal.item.render);
+                    goalInstance.Q<VisualElement>("texture").style.backgroundImage = new StyleBackground(goal.item.render);
                     goalElements.Add(goalInstance);
                 }
             }
