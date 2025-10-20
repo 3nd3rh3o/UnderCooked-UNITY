@@ -13,14 +13,6 @@ public class BaseAgent : MonoBehaviour
 
     void Start()
     {
-        environment.goals = new (){
-            new Goal(environment.possibleOutputs[0], 100, null, environment),
-            new Goal(environment.possibleOutputs[1], 100, null, environment)};
-
-        environment.goals.ForEach(g =>
-        {
-            g.taskTree = new TaskTree(environment.knownRecipes, g.item);
-        });
     }
 
     void FixedUpdate()

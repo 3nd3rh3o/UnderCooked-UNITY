@@ -1,4 +1,5 @@
 using System;
+using UnityEngine.UIElements;
 
 
 [Serializable]
@@ -7,6 +8,7 @@ public class Goal
     public Item item;
     public float remainingTime;
     public TaskTree taskTree;
+
 
     public Goal(Item item, float time, TaskTree tree, Environment env)
     {

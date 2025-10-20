@@ -1,0 +1,10 @@
+TemplateContainer {
+    flex-shrink: 0;
+    flex-grow: 0;
+    align-content: auto;
+    align-self: auto;
+    justify-content: flex-start;
+    align-items: auto;
+    flex-wrap: nowrap;
+    flex-direction: column;
+}
