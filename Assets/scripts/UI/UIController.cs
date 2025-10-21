@@ -38,7 +38,7 @@ public class UIController : MonoBehaviour
         {
             if (interval <= 0)
             {
-                AddGoal(150f, baseItem);
+                AddGoal(150f, env.possibleOutputs[Random.Range(0, env.possibleOutputs.Count)]);
                 interval = maxInterval;
             }
             else
