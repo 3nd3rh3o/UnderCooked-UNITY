@@ -9,11 +9,20 @@ public class UIController : MonoBehaviour
     public List<VisualElement> goalElements = new();
     public Environment env;
     public Item baseItem;
+    public float maxInterval = 5;
+    public float interval = 0;
+    public int maxGoals = 3;
 
     void AddGoal(float initialTime, Item item)
     {
-        var newGoal = new Goal(item, initialTime, null, env);
-        env.goals.Add(newGoal);
+        VisualElement goalInstance = goalTemplate.Instantiate();
+        root.Add(goalInstance);
+        goalInstance.Q<ProgressBar>().title = item.name;
+        goalInstance.Q<ProgressBar>().highValue = initialTime;
+        goalInstance.Q<ProgressBar>().value = initialTime;
+        goalInstance.Q<VisualElement>("texture").style.backgroundImage = new StyleBackground(item.render);
+        env.goals.Add(new Goal(item, initialTime, null, env));
+        goalElements.Add(goalInstance);
     }
 
     void Start()
@@ -21,12 +30,22 @@ public class UIController : MonoBehaviour
         root = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("main");
 
         env.goals = new();
-        AddGoal(100f, baseItem);
-        AddGoal(200f, baseItem);
     }
 
     void Update()
     {
+        if (env.goals.Count < maxGoals)
+        {
+            if (interval <= 0)
+            {
+                AddGoal(150f, baseItem);
+                interval = maxInterval;
+            }
+            else
+            {
+                interval -= Time.deltaTime;
+            }
+        }
 
         // Si num goal est different de num goalInstances
         // => detruire toutes les goalInstances
@@ -46,7 +65,7 @@ public class UIController : MonoBehaviour
                     VisualElement goalInstance = goalTemplate.Instantiate();
                     root.Add(goalInstance);
                     goalInstance.Q<ProgressBar>().title = goal.item.name;
-                    goalInstance.Q<ProgressBar>().highValue = goal.remainingTime;
+                    goalInstance.Q<ProgressBar>().highValue = goal.initialTime;
                     goalInstance.Q<ProgressBar>().value = goal.remainingTime;
                     goalInstance.Q<VisualElement>("texture").style.backgroundImage = new StyleBackground(goal.item.render);
                     goalElements.Add(goalInstance);
