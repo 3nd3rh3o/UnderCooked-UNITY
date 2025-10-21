@@ -9,6 +9,8 @@ public class BaseAgent : MonoBehaviour
     public Environment environment;
     public TaskTree.Node currentNode;
 
+    public string currentActionName;
+
     public GameObject navSurf;
 
     void Start()
@@ -26,6 +28,7 @@ public class BaseAgent : MonoBehaviour
             TaskTree.Node leaf = SelectTaskInGoal();
             BuildActionSeq(leaf);
         }
+        currentActionName = currentAction != null ? currentAction.actions[0].GetType().ToString() : "Idle";
         currentAction?.Execute(this);
     }
 
