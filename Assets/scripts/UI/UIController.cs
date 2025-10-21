@@ -67,7 +67,8 @@ public class UIController : MonoBehaviour
                     goalInstance.Q<ProgressBar>().title = goal.item.name;
                     goalInstance.Q<ProgressBar>().highValue = goal.initialTime;
                     goalInstance.Q<ProgressBar>().value = goal.remainingTime;
-                    goalInstance.Q<VisualElement>("texture").style.backgroundImage = new StyleBackground(goal.item.render);
+                    if (goal.item.render != null)
+                        goalInstance.Q<VisualElement>("texture").style.backgroundImage = new StyleBackground(goal.item.render);
                     goalElements.Add(goalInstance);
                 }
             }

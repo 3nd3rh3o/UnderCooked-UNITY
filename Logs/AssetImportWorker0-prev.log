@@ -1,4 +1,5 @@
 [Licensing::Module] Trying to connect to existing licensing client channel...
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-theen" at "2025-10-20T12:31:38.1112915Z"
 Built from '6000.2/respin/6000.2.8f1-e4064264ae96' branch; Version is '6000.2.8f1 (c9992ac36c34) revision 13211946'; Using compiler version '194234433'; Build Type 'Release'
 OS: 'Windows 11  (10.0.22621) 64bit Professional' Language: 'fr' Physical Memory: 7910 MB
 [Licensing::IpcConnector] Successfully connected to: "LicenseClient-hugog" at "2025-10-21T12:29:37.9814916Z"
@@ -240,6 +241,94 @@ Received Import Request.
   artifactKey: Guid(0e8e4915617810e4c99f2e271416e52a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
 Start importing Assets/scripts/UI/root.uxml using Guid(0e8e4915617810e4c99f2e271416e52a) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'eaff4f7e2183db9517fcba8888cd5468') in 0.0092656 seconds
 Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 9.065617 seconds.
+  path: Assets/data/dishes_render
+  artifactKey: Guid(d6d6b36cf2f7ae146947e0a35a8e0536) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/data/dishes_render using Guid(d6d6b36cf2f7ae146947e0a35a8e0536) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'b7e99a8ce708425532ccd9846901674e') in 0.0003818 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.960471 seconds.
+  path: Assets/data/dishes_render
+  artifactKey: Guid(d6d6b36cf2f7ae146947e0a35a8e0536) Importer(2089858483,192608db42251d675da83286b1cce702)
+Start importing Assets/data/dishes_render using Guid(d6d6b36cf2f7ae146947e0a35a8e0536) Importer(2089858483,192608db42251d675da83286b1cce702) (ScriptedImporter) -> (artifact id: '5d67a62c7a21d280d1f70d714ff196cc') in 0.0097542 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 32.006511 seconds.
+  path: Assets/data/dishes_render/TomatoSoup.png
+  artifactKey: Guid(71d8e5a373cd427419e712aa8fbd597d) Importer(2089858483,192608db42251d675da83286b1cce702)
+Start importing Assets/data/dishes_render/TomatoSoup.png using Guid(71d8e5a373cd427419e712aa8fbd597d) Importer(2089858483,192608db42251d675da83286b1cce702) (ScriptedImporter) -> (artifact id: 'af44e7c4e1f6dbbbfe7a3aa1189ad5e9') in 0.0157538 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 5.452325 seconds.
+  path: Assets/data/dishes_render/TomatoSoup.png
+  artifactKey: Guid(71d8e5a373cd427419e712aa8fbd597d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/data/dishes_render/TomatoSoup.png using Guid(71d8e5a373cd427419e712aa8fbd597d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'a32082029863824f8d7644af2acc791a') in 0.0268669 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 2
+
+========================================================================
+Received Import Request.
+  Time since last request: 451.923285 seconds.
+  path: Assets/scripts/UI/goalContainer.uxml
+  artifactKey: Guid(a05e2e79b09deef42992cd056b568b1d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/scripts/UI/goalContainer.uxml using Guid(a05e2e79b09deef42992cd056b568b1d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'e30b10a9245a0e391287ee65eb21a705') in 0.0019907 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.866189 seconds.
+  path: Assets/scripts/UI/goalContainer.uxml
+  artifactKey: Guid(a05e2e79b09deef42992cd056b568b1d) Importer(2089858483,192608db42251d675da83286b1cce702)
+Start importing Assets/scripts/UI/goalContainer.uxml using Guid(a05e2e79b09deef42992cd056b568b1d) Importer(2089858483,192608db42251d675da83286b1cce702) (ScriptedImporter) -> (artifact id: 'b4d6830397dea2f7606afefe6bfd7d05') in 0.0154324 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 92.274677 seconds.
+  path: Assets/scripts/UI/goalContainer.uxml
+  artifactKey: Guid(a05e2e79b09deef42992cd056b568b1d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/scripts/UI/goalContainer.uxml using Guid(a05e2e79b09deef42992cd056b568b1d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'cd06193acdad9d7f62137715c4bfd844') in 0.0013811 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.944016 seconds.
+  path: Assets/scripts/UI/goalContainer.uxml
+  artifactKey: Guid(a05e2e79b09deef42992cd056b568b1d) Importer(2089858483,192608db42251d675da83286b1cce702)
+Start importing Assets/scripts/UI/goalContainer.uxml using Guid(a05e2e79b09deef42992cd056b568b1d) Importer(2089858483,192608db42251d675da83286b1cce702) (ScriptedImporter) -> (artifact id: '83ea60dcd92c07157b06fc4a001f76b1') in 0.015793 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 112.247567 seconds.
+  path: Assets/scripts/UI/goalContainer.uxml
+  artifactKey: Guid(a05e2e79b09deef42992cd056b568b1d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/scripts/UI/goalContainer.uxml using Guid(a05e2e79b09deef42992cd056b568b1d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'bcf9b7bf8f2be73b41dd630db06aca86') in 0.0021479 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.916408 seconds.
+  path: Assets/scripts/UI/goalContainer.uxml
+  artifactKey: Guid(a05e2e79b09deef42992cd056b568b1d) Importer(2089858483,192608db42251d675da83286b1cce702)
+Start importing Assets/scripts/UI/goalContainer.uxml using Guid(a05e2e79b09deef42992cd056b568b1d) Importer(2089858483,192608db42251d675da83286b1cce702) (ScriptedImporter) -> (artifact id: '7ff47ce55b603eba6c19dd93902249fe') in 0.0115635 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 18.245636 seconds.
+  path: Assets/scripts/UI/UIController.cs
+  artifactKey: Guid(e200c366af114784a93752df6d44ba2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/scripts/UI/UIController.cs using Guid(e200c366af114784a93752df6d44ba2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'a7b5f7224d8e43edc8aac814c0f4aa6f') in 0.0004116 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
 
 ========================================================================
 Received Prepare

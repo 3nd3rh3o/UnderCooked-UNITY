@@ -15,11 +15,11 @@ public class TaskTree
         {
             nextNodes = new List<Node>();
             this.recipe = recipe;
-            foreach (Item i in recipe.inputs)
+            /* foreach (Item i in recipe.inputs)
             {
                 Recipe r = getRecipeProducing(i, knownRecipes);
                 nextNodes.Add(new Node(r, knownRecipes));
-            }
+            } */
         }
         // retourne la feuille gauche.
         public Node GetLeafTodo()
