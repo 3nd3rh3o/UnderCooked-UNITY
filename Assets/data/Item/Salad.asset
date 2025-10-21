@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84e1285d74515b74ba9e87a8782ed555, type: 3}
-  m_Name: TomatoSoup
+  m_Name: Salad
   m_EditorClassIdentifier: Assembly-CSharp::Item
-  ItemGOPrefab: {fileID: 7148124926679735208, guid: d0d2ec46abbbdb5499ee4941eef7e8dd, type: 3}
-  render: {fileID: 2800000, guid: 71d8e5a373cd427419e712aa8fbd597d, type: 3}
+  ItemGOPrefab: {fileID: 1142666961867389640, guid: cea219c708105a0459157a0aaa5d3633, type: 3}
+  render: {fileID: 0}

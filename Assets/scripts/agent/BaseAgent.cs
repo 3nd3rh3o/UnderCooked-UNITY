@@ -9,18 +9,12 @@ public class BaseAgent : MonoBehaviour
     public Environment environment;
     public TaskTree.Node currentNode;
 
+    public string currentActionName;
+
     public GameObject navSurf;
 
     void Start()
     {
-        environment.goals = new (){
-            new Goal(environment.possibleOutputs[0], 100, null, environment),
-            new Goal(environment.possibleOutputs[1], 100, null, environment)};
-
-        environment.goals.ForEach(g =>
-        {
-            g.taskTree = new TaskTree(environment.knownRecipes, g.item);
-        });
     }
 
     void FixedUpdate()
@@ -34,6 +28,7 @@ public class BaseAgent : MonoBehaviour
             TaskTree.Node leaf = SelectTaskInGoal();
             BuildActionSeq(leaf);
         }
+        currentActionName = currentAction != null ? currentAction.actions[0].GetType().ToString() : "Idle";
         currentAction?.Execute(this);
     }
 

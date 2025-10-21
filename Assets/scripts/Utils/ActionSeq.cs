@@ -143,6 +143,15 @@ public class ActionSeq
         }
 
         // ETAPE 1 : creer les actions
+        // Si stand pas vide, on le vide.
+        if (stand.output != null && !stand.standData.isGenerator)
+        {
+            stand.output.Reserve();
+            actions.Add(new MoveToStand(stand, standTransform, env));
+            actions.Add(new TakeItemInStand(stand.output, stand, env));
+            actions.Add(new DropItemInWorld(stand.output, env));
+            actions.Add(new MoveToStand(stand, standTransform, env));
+        }
         for (int i = 0; i < itemsToGet.Count; i++)
         {
             Tuple<ItemInstance, bool, StandInstance, Transform> itemTuple = itemsToGet[i];
@@ -165,14 +174,8 @@ public class ActionSeq
             actions.Add(new DropItemInStand(item, stand, env));
         }
         actions.Add(new MoveToStand(stand, standTransform, env));
-        // Si stand pas vide, on le vide.
-        if (stand.output != null && !stand.standData.isGenerator)
-        {
-            stand.output.Reserve();
-            actions.Add(new TakeItemInStand(stand.output, stand, env));
-            actions.Add(new DropItemInWorld(stand.output, env));
-            actions.Add(new MoveToStand(stand, standTransform, env));
-        }
+        
+        
         // Si le stand est un container, on le met sur le superStand.
         if (stand.standData.isContainer)
         {
