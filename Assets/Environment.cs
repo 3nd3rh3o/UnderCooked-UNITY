@@ -14,7 +14,15 @@ public class Environment : ScriptableObject
     public List<Recipe> knownRecipes;
     public List<StandInstance> deliveryStands;
     public List<Item> possibleOutputs = new();
-
+    public float maxMultiplier = 5f;
+    public float minMultiplier = 1f;
+    public float currentMultiplier = 1f;
+    public float multiplierIncreasePerGoal = 0.5f;
+    public float multiplierDecreasePerFail = 1f;
+    public int maxConcurrentGoals = 3;
+    public float goalIntervalTimer = 5f;
+    public float currentScore = 0f;
+    public float scorePerGoal = 100f;
 
     public void PopNode(TaskTree.Node node)
     {
@@ -25,5 +33,16 @@ public class Environment : ScriptableObject
                 goal.taskTree.PopNode(node);
             }
         }
+    }
+
+    public void FailedGoal()
+    {
+        currentMultiplier = Mathf.Max(minMultiplier, currentMultiplier - multiplierDecreasePerFail);
+    }
+    public void CompletedGoal()
+    {
+        currentScore += scorePerGoal * currentMultiplier;
+        Debug.Log("Goal completed! +" + scorePerGoal * currentMultiplier + " score. Total score: " + currentScore);
+        currentMultiplier = Mathf.Min(maxMultiplier, currentMultiplier + multiplierIncreasePerGoal);
     }
 }

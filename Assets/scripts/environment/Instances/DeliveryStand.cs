@@ -11,6 +11,7 @@ public class DeliveryStand : StandInstance
             {
                 Debug.Log("Goal item delivered!");
                 // Handle goal item delivery logic here
+                env.CompletedGoal();
                 DestroyImmediate(agent.transform.GetChild(0).gameObject);
                 item = null;
                 env.goals.Remove(i);

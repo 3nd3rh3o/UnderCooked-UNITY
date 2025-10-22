@@ -9,9 +9,9 @@ public class UIController : MonoBehaviour
     public List<VisualElement> goalElements = new();
     public Environment env;
     public Item baseItem;
-    public float maxInterval = 5;
+    public float maxInterval;
     public float interval = 0;
-    public int maxGoals = 3;
+    public int maxGoals;
 
     void AddGoal(float initialTime, Item item)
     {
@@ -28,8 +28,10 @@ public class UIController : MonoBehaviour
     void Start()
     {
         root = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("main");
-
+        maxInterval = env.goalIntervalTimer;
+        maxGoals = env.maxConcurrentGoals;
         env.goals = new();
+        env.currentScore = 0f;
     }
 
     void Update()
@@ -76,6 +78,11 @@ public class UIController : MonoBehaviour
         for (int i = 0; i < env.goals.Count; i++)
         {
             env.goals[i].remainingTime -= Time.deltaTime;
+            if (env.goals[i].remainingTime < 0)
+            {
+                Debug.Log("Goal failed: " + env.goals[i].item.name);
+                env.FailedGoal();
+            }
             goalElements[i].Q<ProgressBar>().value = env.goals[i].remainingTime;
         }
         env.goals.RemoveAll(g => g.remainingTime <= 0);
