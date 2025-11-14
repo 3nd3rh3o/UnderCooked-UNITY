@@ -12,6 +12,7 @@ public class BaseAgent : MonoBehaviour
     public string currentActionName;
 
     public GameObject navSurf;
+    private Vector3 wanderTarget;
 
     void Start()
     {
@@ -23,11 +24,29 @@ public class BaseAgent : MonoBehaviour
             return;
         if (currentAction == null || currentAction.actions.Count == 0)
         {
-            GetComponent<NavMeshAgent>().isStopped = true;
             currentAction = null;
             TaskTree.Node leaf = SelectTaskInGoal();
             BuildActionSeq(leaf);
+            if (currentAction == null && wanderTarget == Vector3.zero)
+            {
+                wanderTarget = new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5));
+                GetComponent<NavMeshAgent>().isStopped = false;
+                GetComponent<NavMeshAgent>().destination = wanderTarget;
+            }
+            else if (currentAction != null)
+            {
+                GetComponent<NavMeshAgent>().isStopped = true;
+                wanderTarget = Vector3.zero;
+            }
+
         }
+        if ((transform.position - wanderTarget).magnitude < 2)
+        {
+            wanderTarget = new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5));
+            GetComponent<NavMeshAgent>().isStopped = false;
+            GetComponent<NavMeshAgent>().destination = wanderTarget;
+        }
+
         currentActionName = currentAction != null ? currentAction.actions[0].GetType().ToString() : "Idle";
         currentAction?.Execute(this);
     }
