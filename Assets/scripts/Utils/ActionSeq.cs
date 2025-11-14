@@ -163,8 +163,11 @@ public class ActionSeq
             StandInstance itemStand = inWorld ? null : itemTuple.Item3;
             Transform itemTransform = itemTuple.Item4;
             item.Reserve();
-            itemStand.Reserve();
-            containers.Add(itemStand);
+            if (!inWorld)
+            {
+                itemStand.Reserve();
+                containers.Add(itemStand);
+            }
             if (inWorld)
             {
                 actions.Add(new MoveToItem(item, itemTransform, env));

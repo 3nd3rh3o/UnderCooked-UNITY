@@ -12,6 +12,7 @@ public class SeqEnd : Action
         this.stand = stand;
         this.items = items;
         this.outputItemIfStandFull = outputItemIfStandFull;
+        this.standsReserved = standsReserved;
     }
     public void Execute(BaseAgent agent)
     {
