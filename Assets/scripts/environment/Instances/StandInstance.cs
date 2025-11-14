@@ -7,7 +7,6 @@ public class StandInstance : MonoBehaviour
     public Stand standData;
     public List<ItemInstance> inputs;
     public ItemInstance output;
-    public BaseAgent reservedBy;
     public bool reserved = false;
 
     public float processingTimer = -1f;
@@ -57,5 +56,15 @@ public class StandInstance : MonoBehaviour
     public virtual void OnDestroy()
     {
         env.stands.Remove(this);
+    }
+
+    public void Reserve()
+    {
+        reserved = true;
+    }
+
+    public void UnReserve()
+    {
+        reserved = false;
     }
 }

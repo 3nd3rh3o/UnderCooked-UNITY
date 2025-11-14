@@ -5,8 +5,9 @@ public class SeqEnd : Action
     private StandInstance stand;
     private List<ItemInstance> items;
     private ItemInstance outputItemIfStandFull;
+    private List<StandInstance> standsReserved;
 
-    public SeqEnd(StandInstance stand, List<ItemInstance> items, ItemInstance outputItemIfStandFull)
+    public SeqEnd(StandInstance stand, List<ItemInstance> items, ItemInstance outputItemIfStandFull, List<StandInstance> standsReserved = null)
     {
         this.stand = stand;
         this.items = items;
@@ -19,6 +20,9 @@ public class SeqEnd : Action
         {
             item.UnReserve();
         }
+        if (standsReserved != null)
+            foreach (StandInstance s in standsReserved)
+                s.UnReserve();
         outputItemIfStandFull?.UnReserve();
     }
 

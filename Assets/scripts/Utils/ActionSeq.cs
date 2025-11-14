@@ -95,7 +95,7 @@ public class ActionSeq
                 actions.Add(new TakeItemInStand(item.Item2, item.Item3, env));
                 actions.Add(new MoveToStand(env.deliveryStands[0], env.deliveryStands[0].transform, env));
                 actions.Add(new DropItemInStand(item.Item2, env.deliveryStands[0], env));
-                actions.Add(new SeqEnd(env.deliveryStands[0], new List<ItemInstance> { item.Item2 }, null));
+                actions.Add(new SeqEnd(env.deliveryStands[0], new List<ItemInstance> { item.Item2 }, null, new List<StandInstance> { item.Item3 }));
                 return;
 
             }
@@ -152,6 +152,9 @@ public class ActionSeq
             actions.Add(new DropItemInWorld(stand.output, env));
             actions.Add(new MoveToStand(stand, standTransform, env));
         }
+
+        List<StandInstance> containers = new List<StandInstance>();
+
         for (int i = 0; i < itemsToGet.Count; i++)
         {
             Tuple<ItemInstance, bool, StandInstance, Transform> itemTuple = itemsToGet[i];
@@ -160,6 +163,8 @@ public class ActionSeq
             StandInstance itemStand = inWorld ? null : itemTuple.Item3;
             Transform itemTransform = itemTuple.Item4;
             item.Reserve();
+            itemStand.Reserve();
+            containers.Add(itemStand);
             if (inWorld)
             {
                 actions.Add(new MoveToItem(item, itemTransform, env));
@@ -174,8 +179,8 @@ public class ActionSeq
             actions.Add(new DropItemInStand(item, stand, env));
         }
         actions.Add(new MoveToStand(stand, standTransform, env));
-        
-        
+        stand.Reserve();
+
         // Si le stand est un container, on le met sur le superStand.
         if (stand.standData.isContainer)
         {
@@ -194,12 +199,12 @@ public class ActionSeq
         }
 
 
-            
 
 
-        actions.Add(new SeqEnd(stand, itemsToGet.ConvertAll(t => t.Item1), stand.output));
+
+        actions.Add(new SeqEnd(stand, itemsToGet.ConvertAll(t => t.Item1), stand.output, containers));
     }
-    
+
     public void Execute(BaseAgent agent)
     {
         if (actions == null || actions.Count == 0)
