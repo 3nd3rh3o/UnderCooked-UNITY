@@ -19,7 +19,11 @@ public class ActionSeq
             ((env.itemInWorld == null) &&
             (env.itemsOnStands == null))
         )
+        {
+            node.inProgress = false;
             return false;
+        }
+            
         // Check si goal dans le monde, si oui, annuler la sequence et creer une sequence de livraison.
         foreach (Tuple<Transform, ItemInstance, StandInstance> item in env.itemsOnStands)
         {
@@ -29,8 +33,13 @@ public class ActionSeq
             }
         }
 
-        if (node == null || node.recipe == null)
+        if (node == null || node.recipe == null || node.inProgress)
+        {
+            if (node != null)
+                node.inProgress = false;
             return false;
+        }
+            
         foreach (StandInstance stand in env.stands)
         {
             if (stand.standData == node.recipe.stand && !stand.reserved)
@@ -66,9 +75,11 @@ public class ActionSeq
                     Recipe r = TaskTree.getRecipeProducing(missingItem, env.knownRecipes);
                     node.nextNodes.Add(new TaskTree.Node(r, env.knownRecipes));
                 }
+                node.inProgress = false;
                 return false;
             }
         }
+        node.inProgress = false;
         return false;
     }
 
@@ -206,6 +217,7 @@ public class ActionSeq
 
 
         actions.Add(new SeqEnd(stand, itemsToGet.ConvertAll(t => t.Item1), stand.output, containers));
+        node.inProgress = true;
     }
 
     public void Execute(BaseAgent agent)

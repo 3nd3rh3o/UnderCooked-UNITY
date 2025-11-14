@@ -9,6 +9,7 @@ public class TaskTree
     {
         // contient recettes et noeuds enfants.
         public Recipe recipe;
+        public bool inProgress = false;
         public List<Node> nextNodes; // null ou vide quand feuille.
         // constructeur réccursif.
         public Node(Recipe recipe, List<Recipe> knownRecipes)
@@ -24,10 +25,14 @@ public class TaskTree
         // retourne la feuille gauche.
         public Node GetLeafTodo()
         {
-            if (nextNodes[0].nextNodes == null || nextNodes[0].nextNodes.Count == 0)
-                return nextNodes[0];
-            else
-                return nextNodes[0].GetLeafTodo();
+            // iter on childs here => non-null return ? return it : try on next. Last resort => return null.
+            foreach (Node node in nextNodes)
+                if ((node.nextNodes == null || node.nextNodes.Count == 0) && !node.inProgress)
+                    return node;
+                else
+                    if (node.GetLeafTodo() != null && !node.GetLeafTodo().inProgress)
+                        return node.GetLeafTodo();
+            return null;
         }
 
         public void PopNode(Node node)

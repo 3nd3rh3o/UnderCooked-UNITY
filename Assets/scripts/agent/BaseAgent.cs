@@ -39,7 +39,7 @@ public class BaseAgent : MonoBehaviour
             return null;
         foreach (Goal goal in environment.goals)
         {
-            if (goal.taskTree != null)
+            if (goal.taskTree != null && goal.taskTree.getLeafTodo() != null)
             {
                 return goal.taskTree.getLeafTodo();
             }

@@ -25,6 +25,8 @@ public class SeqEnd : Action
             foreach (StandInstance s in standsReserved)
                 s.UnReserve();
         outputItemIfStandFull?.UnReserve();
+        if (agent.currentNode != null) 
+            agent.currentNode.inProgress = false;
     }
 
     public bool IsDone(BaseAgent agent)
