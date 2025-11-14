@@ -1,4 +1,5 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/scripts/UI/template.uss?fileID=7433441132597879392&amp;guid=a6449c45af0ec7f4daeb0a262199b229&amp;type=3#template" />
     <ui:VisualElement name="main" style="flex-grow: 0; align-items: stretch; justify-content: flex-start; align-self: auto; align-content: auto; flex-wrap: nowrap; flex-direction: row; margin-top: 5px; margin-right: 5px; margin-bottom: 5px; margin-left: 5px; width: 100%; height: 15%;" />
+    <ui:VisualElement name="scoreInfos" style="flex-grow: 1; height: 20%; width: 100%; justify-content: flex-start;" />
 </ui:UXML>

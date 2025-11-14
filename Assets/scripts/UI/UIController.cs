@@ -6,6 +6,8 @@ public class UIController : MonoBehaviour
 {
     public VisualElement root;
     public VisualTreeAsset goalTemplate;
+    public VisualTreeAsset scoreInfos;
+    public VisualElement sI;
     public List<VisualElement> goalElements = new();
     public Environment env;
     public Item baseItem;
@@ -25,13 +27,25 @@ public class UIController : MonoBehaviour
         goalElements.Add(goalInstance);
     }
 
+
+
     void Start()
     {
+        env.currentMultiplier = env.minMultiplier;
         root = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("main");
+        VisualElement scoreInfosRoot = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("scoreInfos");
+        sI = scoreInfos.Instantiate();
+        scoreInfosRoot.Add(sI);
+        sI.style.position = Position.Absolute;
+        sI.style.bottom = 10;
+        sI.style.left = 0;
+        sI.style.right = 0;
         maxInterval = env.goalIntervalTimer;
         maxGoals = env.maxConcurrentGoals;
         env.goals = new();
         env.currentScore = 0f;
+        scoreInfosRoot.Q<VisualElement>("multiplierContainer").Q<Label>("multiplier").text = "" + env.currentMultiplier;
+        scoreInfosRoot.Q<VisualElement>("multiplierContainer").Q<Label>("multiplier").style.color = Color.Lerp(Color.yellow, Color.red, (float)(env.currentMultiplier - env.minMultiplier) / (env.maxMultiplier - env.minMultiplier));
     }
 
     void Update()
@@ -80,8 +94,10 @@ public class UIController : MonoBehaviour
             env.goals[i].remainingTime -= Time.deltaTime;
             if (env.goals[i].remainingTime < 0)
             {
-                Debug.Log("Goal failed: " + env.goals[i].item.name);
                 env.FailedGoal();
+                VisualElement scoreInfoRoot = sI.Q<VisualElement>("scoreInfos");
+                scoreInfoRoot.Q<VisualElement>("multiplierContainer").Q<Label>("multiplier").text = "" + env.currentMultiplier;
+                scoreInfoRoot.Q<VisualElement>("multiplierContainer").Q<Label>("multiplier").style.color = Color.Lerp(Color.yellow, Color.red, (env.currentMultiplier - env.minMultiplier) / (env.maxMultiplier - env.minMultiplier));
             }
             goalElements[i].Q<ProgressBar>().value = env.goals[i].remainingTime;
         }
