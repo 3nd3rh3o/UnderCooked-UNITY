@@ -100,6 +100,7 @@ public class ActionSeq
         {
             if (!(item.Item2.IsReserved()) && IsGoalItem(item.Item2, env))
             {
+                item.Item2.Reserve();
                 // Annuler la construction de la sequence et remplacer par une sequence de livraison de goal.
                 actions = new List<Action>();
                 actions.Add(new MoveToStand(item.Item3, item.Item1, env));

@@ -81,7 +81,7 @@ public class TaskTree
     // (retourne la feuille gauche de l'arbre).
     public Node getLeafTodo()
     {
-        if (root == null)
+        if (root == null || root.inProgress)
             return null;
         if (root.nextNodes == null || root.nextNodes.Count == 0)
             return root;
