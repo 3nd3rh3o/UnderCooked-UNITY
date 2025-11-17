@@ -1,5 +1,6 @@
 using Unity.AI.Navigation;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class DropContainer : Action
 {
@@ -21,6 +22,8 @@ public class DropContainer : Action
         container.GetComponent<Rigidbody>().isKinematic = false;
         container.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
         container.GetComponent<Collider>().enabled = true;
+        
+        container.GetComponent<NavMeshObstacle>().enabled = true;
         
         agent.navSurf.GetComponent<NavMeshSurface>().BuildNavMesh();
     }

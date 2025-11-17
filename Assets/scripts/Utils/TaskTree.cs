@@ -99,6 +99,8 @@ public class TaskTree
             root = null;
             return;
         }
+        if (root == null)
+            return;
         foreach (Node n in root.nextNodes)
         {
             if (n == node)
