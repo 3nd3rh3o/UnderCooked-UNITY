@@ -14,7 +14,8 @@ public class DeliveryStand : StandInstance
                 DestroyImmediate(agent.transform.GetChild(0).gameObject);
                 item = null;
                 env.goals.Remove(i);
-                agent.currentNode.isDead = true;
+                if (agent.currentNode != null)
+                    agent.currentNode.isDead = true;
                 return;
             }
         }
