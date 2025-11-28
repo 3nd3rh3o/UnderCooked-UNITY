@@ -44,6 +44,9 @@ public class UIController : MonoBehaviour
     void Start()
     {
         env.uIController = this;
+        env.maxGoalsCompletedInARow = 0;
+        env.totalGoalsCompleted = 0;
+        env.goalsCompletedInARow = 0;
         env.currentMultiplier = env.minMultiplier;
         root = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("main");
         sI = scoreInfos.Instantiate();

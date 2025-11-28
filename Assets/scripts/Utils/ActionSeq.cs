@@ -20,10 +20,9 @@ public class ActionSeq
             (env.itemsOnStands == null))
         )
         {
-            node.inProgress = false;
             return false;
         }
-            
+
         // Check si goal dans le monde, si oui, annuler la sequence et creer une sequence de livraison.
         foreach (Tuple<Transform, ItemInstance, StandInstance> item in env.itemsOnStands)
         {
@@ -35,11 +34,9 @@ public class ActionSeq
 
         if (node == null || node.recipe == null || node.inProgress)
         {
-            if (node != null)
-                node.inProgress = false;
             return false;
         }
-            
+
         foreach (StandInstance stand in env.stands)
         {
             if (stand.standData == node.recipe.stand && !stand.reserved)
@@ -75,11 +72,10 @@ public class ActionSeq
                     Recipe r = TaskTree.getRecipeProducing(missingItem, env.knownRecipes);
                     node.nextNodes.Add(new TaskTree.Node(r, env.knownRecipes));
                 }
-                node.inProgress = false;
+
                 return false;
             }
         }
-        node.inProgress = false;
         return false;
     }
 
@@ -98,9 +94,10 @@ public class ActionSeq
         // Check si goal dans le monde, si oui, annuler la sequence et creer une sequence de livraison.
         foreach (Tuple<Transform, ItemInstance, StandInstance> item in env.itemsOnStands)
         {
-            if (!(item.Item2.IsReserved()) && IsGoalItem(item.Item2, env))
+            if (!(item.Item2.IsReserved()) && !(item.Item3.reserved) && IsGoalItem(item.Item2, env))
             {
                 item.Item2.Reserve();
+                item.Item3.Reserve();
                 // Annuler la construction de la sequence et remplacer par une sequence de livraison de goal.
                 actions = new List<Action>();
                 actions.Add(new MoveToStand(item.Item3, item.Item1, env));
@@ -120,9 +117,11 @@ public class ActionSeq
         // ETAPE 5 : DestroyNode.
         StandInstance stand = null;
         Transform standTransform = null;
+        if (node == null)
+            return;
         foreach (StandInstance s in env.stands)
         {
-            if (s.standData == node.recipe.stand && !s.reserved)
+            if (s.standData != null && node.recipe != null && s.standData == node.recipe.stand && !(s.reserved))
             {
                 stand = s;
                 standTransform = s.transform;
@@ -136,7 +135,7 @@ public class ActionSeq
             bool found = false;
             foreach (Tuple<Transform, ItemInstance> item in env.itemInWorld)
             {
-                if (item.Item2.ItemData == input && !item.Item2.IsReserved() && !itemsToGet.Exists(t => t.Item1 == item.Item2))
+                if (item.Item2.ItemData == input && !(item.Item2.IsReserved()) && !itemsToGet.Exists(t => t.Item1 == item.Item2))
                 {
                     itemsToGet.Add(new(item.Item2, true, null, item.Item1));
                     found = true;
@@ -146,14 +145,20 @@ public class ActionSeq
             if (found) continue;
             foreach (Tuple<Transform, ItemInstance, StandInstance> item in env.itemsOnStands)
             {
-                if (item.Item2.ItemData == input && !item.Item2.IsReserved() && !itemsToGet.Exists(t => t.Item1 == item.Item2))
+                if (item.Item2.ItemData == input && !(item.Item2.IsReserved()) && !itemsToGet.Exists(t => t.Item1 == item.Item2))
                 {
                     itemsToGet.Add(new(item.Item2, false, item.Item3, item.Item1));
                     break;
                 }
             }
         }
-
+        // tryed to deliver something, but it's taken !
+        if (stand == null || stand.standData == null)
+        {
+            node.inProgress = true;
+            actions.Clear();
+            return;
+        }
         // ETAPE 1 : creer les actions
         // Si stand pas vide, on le vide.
         if (stand.output != null && !stand.standData.isGenerator)
@@ -200,7 +205,15 @@ public class ActionSeq
         if (stand.standData.isContainer)
         {
             actions.Add(new TakeContainer(stand, standTransform, env));
-            StandInstance superStand = env.stands.Find(s => s.standData == stand.standData.containerFor);
+            StandInstance superStand = env.stands.Find(s => s.standData == stand.standData.containerFor && !s.reserved);
+            if (superStand == null)
+            {
+                itemsToGet.ConvertAll(t => t.Item1).ForEach(s => s.UnReserve());
+                containers.ForEach(s => s.UnReserve());
+                actions.Clear();
+                return;
+            }
+
             superStand.Reserve();
             containers.Add(superStand);
             actions.Add(new MoveToStand(superStand, superStand.transform, env));
