@@ -27,14 +27,27 @@ public class UIController : MonoBehaviour
         goalElements.Add(goalInstance);
     }
 
+    public void UpdateScore(float currentMultiplier, float score)
+    {
+        VisualElement scoreInfosRoot = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("scoreInfos");
+        VisualElement scoreRoot = scoreInfosRoot.Q<VisualElement>("scoreContainer");
+        VisualElement multiplierRoot = scoreInfosRoot.Q<VisualElement>("multiplierContainer");
+
+        scoreRoot.Q<Label>("score").text = "" + score;
+
+        multiplierRoot.Q<Label>("multiplier").text = "" + currentMultiplier;
+        multiplierRoot.Q<Label>("multiplier").style.color = Color.Lerp(Color.yellow, Color.red, (float)(currentMultiplier - env.minMultiplier) / (env.maxMultiplier - env.minMultiplier));
+    }
+
 
 
     void Start()
     {
+        env.uIController = this;
         env.currentMultiplier = env.minMultiplier;
         root = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("main");
-        VisualElement scoreInfosRoot = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("scoreInfos");
         sI = scoreInfos.Instantiate();
+        VisualElement scoreInfosRoot = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("scoreInfos");
         scoreInfosRoot.Add(sI);
         sI.style.position = Position.Absolute;
         sI.style.bottom = 10;
@@ -44,8 +57,7 @@ public class UIController : MonoBehaviour
         maxGoals = env.maxConcurrentGoals;
         env.goals = new();
         env.currentScore = 0f;
-        scoreInfosRoot.Q<VisualElement>("multiplierContainer").Q<Label>("multiplier").text = "" + env.currentMultiplier;
-        scoreInfosRoot.Q<VisualElement>("multiplierContainer").Q<Label>("multiplier").style.color = Color.Lerp(Color.yellow, Color.red, (float)(env.currentMultiplier - env.minMultiplier) / (env.maxMultiplier - env.minMultiplier));
+        UpdateScore(env.currentMultiplier, env.currentScore);
     }
 
     void Update()
@@ -95,9 +107,6 @@ public class UIController : MonoBehaviour
             if (env.goals[i].remainingTime < 0)
             {
                 env.FailedGoal();
-                VisualElement scoreInfoRoot = sI.Q<VisualElement>("scoreInfos");
-                scoreInfoRoot.Q<VisualElement>("multiplierContainer").Q<Label>("multiplier").text = "" + env.currentMultiplier;
-                scoreInfoRoot.Q<VisualElement>("multiplierContainer").Q<Label>("multiplier").style.color = Color.Lerp(Color.yellow, Color.red, (env.currentMultiplier - env.minMultiplier) / (env.maxMultiplier - env.minMultiplier));
             }
             goalElements[i].Q<ProgressBar>().value = env.goals[i].remainingTime;
         }

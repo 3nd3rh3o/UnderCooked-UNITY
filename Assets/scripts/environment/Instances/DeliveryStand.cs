@@ -9,7 +9,6 @@ public class DeliveryStand : StandInstance
         {
             if (i.item == item.ItemData && agent.transform.childCount > 0 && agent.transform.GetChild(0).gameObject != null)
             {
-                Debug.Log("Goal item delivered!");
                 // Handle goal item delivery logic here
                 env.CompletedGoal();
                 DestroyImmediate(agent.transform.GetChild(0).gameObject);

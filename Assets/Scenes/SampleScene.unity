@@ -191,9 +191,9 @@ Transform:
   m_GameObject: {fileID: 52199450}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: 0.37, z: 0}
+  m_LocalScale: {x: 1.48, y: 1.48, z: 1.48}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -909,6 +909,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIController
   goalTemplate: {fileID: 9197481963319205126, guid: a05e2e79b09deef42992cd056b568b1d, type: 3}
+  scoreInfos: {fileID: 9197481963319205126, guid: 17464173fde586742854f339214b9c00, type: 3}
   env: {fileID: 11400000, guid: ee46429b306af314cb9f6d5e55ccb509, type: 2}
   baseItem: {fileID: 11400000, guid: 778b54c4c42bcc34aa4674f8f22cac6e, type: 2}
   maxInterval: 5
@@ -1296,7 +1297,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 0
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2.11
+  m_Height: 0.4
   m_BaseOffset: 1
   m_WalkableMask: 1
   m_ObstacleAvoidanceType: 4
