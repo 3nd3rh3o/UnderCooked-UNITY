@@ -9,6 +9,7 @@ public class ActionSeq
     // TODO : Si il manque un item, ajouter une node a l'arbre des taches.
     public static bool CanBuild(TaskTree.Node node, Environment env)
     {
+        //Debug.Log("try build.");
         // node.recipe.stand; => le stand
         // node.recipe.inputs; => les items a prendre
         // node.recipe.result; => l'item a produire
@@ -20,6 +21,7 @@ public class ActionSeq
             (env.itemsOnStands == null))
         )
         {
+            //Debug.Log("refused.");
             return false;
         }
 
@@ -28,12 +30,14 @@ public class ActionSeq
         {
             if (!(item.Item2.IsReserved()) && IsGoalItem(item.Item2, env))
             {
+                //Debug.Log("ok.");
                 return true;
             }
         }
 
         if (node == null || node.recipe == null || node.inProgress)
         {
+            //Debug.Log("refused.");
             return false;
         }
 
@@ -64,6 +68,7 @@ public class ActionSeq
                 }
                 if (countItemsFound >= node.recipe.inputs.Count)
                 {
+                    //Debug.Log("ok.");
                     return true;
                 }
                 // Si il manque un item, ajouter une node a l'arbre des taches.
@@ -72,10 +77,11 @@ public class ActionSeq
                     Recipe r = TaskTree.getRecipeProducing(missingItem, env.knownRecipes);
                     node.nextNodes.Add(new TaskTree.Node(r, env.knownRecipes));
                 }
-
+                //Debug.Log("refused.");
                 return false;
             }
         }
+        //Debug.Log("refused.");
         return false;
     }
 
@@ -83,18 +89,37 @@ public class ActionSeq
     {
         foreach (Goal goal in env.goals)
         {
-            if (goal.item == item.ItemData)
+            if (goal.item == item.ItemData && !goal.itemInDelivery)
+            {
                 return true;
+            }
+        }
+        return false;
+    }
+    private static bool IdentifyAndLockGoalItem(ItemInstance item, Environment env)
+    {
+        foreach (Goal goal in env.goals)
+        {
+            if (goal.item == item.ItemData && !goal.itemInDelivery)
+            {
+                goal.itemInDelivery = true;
+                return true;
+            }
         }
         return false;
     }
     public ActionSeq(TaskTree.Node node, Environment env)
-    {
+    { 
+        if (node == null)
+            return;
+        if (node.inProgress)
+            return;
+        Debug.Log("start building");
         actions = new List<Action>();
         // Check si goal dans le monde, si oui, annuler la sequence et creer une sequence de livraison.
         foreach (Tuple<Transform, ItemInstance, StandInstance> item in env.itemsOnStands)
         {
-            if (!(item.Item2.IsReserved()) && !(item.Item3.reserved) && IsGoalItem(item.Item2, env))
+            if (!(item.Item2.IsReserved()) && !(item.Item3.reserved) && IdentifyAndLockGoalItem(item.Item2, env))
             {
                 item.Item2.Reserve();
                 item.Item3.Reserve();
@@ -105,6 +130,8 @@ public class ActionSeq
                 actions.Add(new MoveToStand(env.deliveryStands[0], env.deliveryStands[0].transform, env));
                 actions.Add(new DropItemInStand(item.Item2, env.deliveryStands[0], env));
                 actions.Add(new SeqEnd(env.deliveryStands[0], new List<ItemInstance> { item.Item2 }, null, new List<StandInstance> { item.Item3 }));
+                Debug.Log("done -> deliver");
+                node.inProgress = true;
                 return;
 
             }
@@ -118,7 +145,10 @@ public class ActionSeq
         StandInstance stand = null;
         Transform standTransform = null;
         if (node == null)
+        {
+            Debug.Log("fail");
             return;
+        }
         foreach (StandInstance s in env.stands)
         {
             if (s.standData != null && node.recipe != null && s.standData == node.recipe.stand && !(s.reserved))
@@ -155,8 +185,8 @@ public class ActionSeq
         // tryed to deliver something, but it's taken !
         if (stand == null || stand.standData == null)
         {
-            node.inProgress = true;
             actions.Clear();
+            Debug.Log("fail -> deliver2");
             return;
         }
         // ETAPE 1 : creer les actions
@@ -211,6 +241,8 @@ public class ActionSeq
                 itemsToGet.ConvertAll(t => t.Item1).ForEach(s => s.UnReserve());
                 containers.ForEach(s => s.UnReserve());
                 actions.Clear();
+                Debug.Log("fail -> no super stand");
+                node.inProgress = false;
                 return;
             }
 
@@ -227,13 +259,9 @@ public class ActionSeq
         {
             actions.Add(new UseStand(stand, node, env));
         }
-
-
-
-
-
         actions.Add(new SeqEnd(stand, itemsToGet.ConvertAll(t => t.Item1), stand.output, containers));
         node.inProgress = true;
+        Debug.Log("done");
     }
 
     public void Execute(BaseAgent agent)
