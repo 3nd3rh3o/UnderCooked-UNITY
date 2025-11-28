@@ -7,6 +7,8 @@ public class TaskTree
     // Un noeud de l'arbre.
     public class Node
     {
+        // used to stabilize lock.
+        public bool isDead = false;
         // contient recettes et noeuds enfants.
         public Recipe recipe;
         public bool inProgress = false;
