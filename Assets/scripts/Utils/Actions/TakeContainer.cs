@@ -2,6 +2,7 @@
 using Unity.AI.Navigation;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class TakeContainer : Action
 {
@@ -20,7 +21,8 @@ public class TakeContainer : Action
         transform.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
         transform.GetComponent<Rigidbody>().isKinematic = true;
         transform.GetComponent<Collider>().enabled = false;
-        transform.localPosition = Vector3.forward * 0.5f;
+        transform.GetComponent<NavMeshObstacle>().enabled = false;
+        transform.localPosition = Vector3.forward * 1f;
         transform.SetParent(agent.transform, false);
         agent.navSurf.GetComponent<NavMeshSurface>().BuildNavMesh();
     }

@@ -14,10 +14,6 @@ public class BaseAgent : MonoBehaviour
     public GameObject navSurf;
     private Vector3 wanderTarget;
 
-    void Start()
-    {
-    }
-
     void FixedUpdate()
     {
         if (environment == null)
@@ -29,7 +25,7 @@ public class BaseAgent : MonoBehaviour
             BuildActionSeq(leaf);
             if (currentAction == null && wanderTarget == Vector3.zero)
             {
-                wanderTarget = new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5));
+                wanderTarget = new Vector3(Random.Range(-5, 5), 0, Random.Range(-2, 2));
                 GetComponent<NavMeshAgent>().isStopped = false;
                 GetComponent<NavMeshAgent>().destination = wanderTarget;
             }
@@ -42,7 +38,7 @@ public class BaseAgent : MonoBehaviour
         }
         if ((transform.position - wanderTarget).magnitude < 2)
         {
-            wanderTarget = new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5));
+            wanderTarget = new Vector3(Random.Range(-5, 5), 0, Random.Range(-2, 2));
             GetComponent<NavMeshAgent>().isStopped = false;
             GetComponent<NavMeshAgent>().destination = wanderTarget;
         }
