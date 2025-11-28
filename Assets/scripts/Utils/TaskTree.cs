@@ -31,7 +31,7 @@ public class TaskTree
                     return node;
                 else
                     if (node.GetLeafTodo() != null && !node.GetLeafTodo().inProgress)
-                        return node.GetLeafTodo();
+                    return node.GetLeafTodo();
             return null;
         }
 
@@ -51,7 +51,7 @@ public class TaskTree
             }
         }
     }
-    
+
     // Construit l'arborescence de tâches par objet.
     // Attention ! ne prends pas en compte les déplacements !!!
     // Il faudra un script approprié pour gerer les différentes "façon" de fabriquer
@@ -114,7 +114,4 @@ public class TaskTree
             }
         }
     }
-
-
-    // TODO : AddNode. Si une node a été pop par une autre task, il faut pouvoir en remettre une.
 }
