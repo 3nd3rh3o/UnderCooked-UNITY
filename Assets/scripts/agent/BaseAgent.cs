@@ -20,7 +20,7 @@ public class BaseAgent : MonoBehaviour
     {
         if (environment == null)
             return;
-        if (currentNode.isDead)
+        if (currentNode != null && currentNode.isDead)
             currentNode = null;
         if (currentAction == null || currentAction.actions.Count == 0)
         {
