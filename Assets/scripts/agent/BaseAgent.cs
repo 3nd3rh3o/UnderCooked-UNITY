@@ -1,3 +1,5 @@
+using System.Linq;
+using NUnit;
 using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
@@ -18,6 +20,8 @@ public class BaseAgent : MonoBehaviour
     {
         if (environment == null)
             return;
+        if (currentNode.isDead)
+            currentNode = null;
         if (currentAction == null || currentAction.actions.Count == 0)
         {
             currentAction = null;

@@ -201,6 +201,8 @@ public class ActionSeq
         {
             actions.Add(new TakeContainer(stand, standTransform, env));
             StandInstance superStand = env.stands.Find(s => s.standData == stand.standData.containerFor);
+            superStand.Reserve();
+            containers.Add(superStand);
             actions.Add(new MoveToStand(superStand, superStand.transform, env));
             actions.Add(new PutContainer(stand, superStand, env));
             actions.Add(new UseStand(stand, node, env));
