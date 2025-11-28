@@ -8,6 +8,7 @@ public class Environment : ScriptableObject
 {
     [SerializeField]
     public List<Goal> goals = new();
+    public UIController uIController;
     public List<Tuple<Transform, ItemInstance>> itemInWorld = new();
     public List<Tuple<Transform, ItemInstance, StandInstance>> itemsOnStands = new();
     public List<StandInstance> stands;
@@ -38,11 +39,12 @@ public class Environment : ScriptableObject
     public void FailedGoal()
     {
         currentMultiplier = Mathf.Max(minMultiplier, currentMultiplier - multiplierDecreasePerFail);
+        uIController.UpdateScore(currentMultiplier, currentScore);
     }
     public void CompletedGoal()
     {
         currentScore += scorePerGoal * currentMultiplier;
-        Debug.Log("Goal completed! +" + scorePerGoal * currentMultiplier + " score. Total score: " + currentScore);
         currentMultiplier = Mathf.Min(maxMultiplier, currentMultiplier + multiplierIncreasePerGoal);
+        uIController.UpdateScore(currentMultiplier, currentScore);
     }
 }
