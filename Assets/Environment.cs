@@ -24,6 +24,9 @@ public class Environment : ScriptableObject
     public float goalIntervalTimer = 5f;
     public float currentScore = 0f;
     public float scorePerGoal = 100f;
+    public int maxGoalsCompletedInARow = 0;
+    public int goalsCompletedInARow = 0;
+    public int totalGoalsCompleted = 0;
 
     public void PopNode(TaskTree.Node node)
     {
@@ -40,11 +43,21 @@ public class Environment : ScriptableObject
     {
         currentMultiplier = Mathf.Max(minMultiplier, currentMultiplier - multiplierDecreasePerFail);
         uIController.UpdateScore(currentMultiplier, currentScore);
+        goalsCompletedInARow = 0;
+        Debug.Log("Lost the goals streak. Our MAX is at " + maxGoalsCompletedInARow);
     }
     public void CompletedGoal()
     {
         currentScore += scorePerGoal * currentMultiplier;
         currentMultiplier = Mathf.Min(maxMultiplier, currentMultiplier + multiplierIncreasePerGoal);
         uIController.UpdateScore(currentMultiplier, currentScore);
+        totalGoalsCompleted++;
+        goalsCompletedInARow++;
+        if (goalsCompletedInARow > maxGoalsCompletedInARow)
+        {
+            maxGoalsCompletedInARow = goalsCompletedInARow;
+        }
+        Debug.Log("Currently " + goalsCompletedInARow + " goals completed in a row. Our MAX is at " + maxGoalsCompletedInARow);
+        Debug.Log("In total, we completed " + totalGoalsCompleted + " goals");
     }
 }
