@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 public class Goal
 {
     public Item item;
+    public bool itemInDelivery = false;
     public float remainingTime;
     public float initialTime;
     public TaskTree taskTree;

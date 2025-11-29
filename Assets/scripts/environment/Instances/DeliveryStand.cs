@@ -19,7 +19,7 @@ public class DeliveryStand : StandInstance
                 return;
             }
         }
-        Debug.Log("Delivered item is not a goal item, Thrashing it anyway!");
+        Debug.LogWarning("Delivered item is not a goal item, Thrashing it anyway!");
         if (agent.transform.childCount > 0 && agent.transform.GetChild(0).gameObject != null)
         {
             Destroy(agent.transform.GetChild(0).gameObject);
