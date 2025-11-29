@@ -25,11 +25,16 @@ public class BaseAgent : MonoBehaviour
         {
             currentNode = null;
         }
-        if (currentAction == null || currentAction.actions.Count == 0)
+        if (currentAction == null || currentAction.actions == null || currentAction.actions.Count == 0)
         {
             currentAction = null;
             TaskTree.Node leaf = SelectTaskInGoal();
             BuildActionSeq(leaf);
+            if (leaf != null && (currentAction == null || currentAction.actions == null || currentAction.actions.Count == 0))
+            {
+                leaf.inProgress = false;
+                return;
+            }
             if (currentAction == null && wanderTarget == Vector3.zero)
             {
                 wanderTarget = new Vector3(Random.Range(-5, 5), 0, Random.Range(-2, 2));
@@ -52,6 +57,11 @@ public class BaseAgent : MonoBehaviour
             wanderTarget = new Vector3(Random.Range(-5, 5), 0, Random.Range(-2, 2));
             GetComponent<NavMeshAgent>().isStopped = false;
             GetComponent<NavMeshAgent>().destination = wanderTarget;
+        }
+        if (currentAction == null || currentAction.actions == null || currentAction.actions.Count == 0)
+        {
+
+            return;
         }
 
         currentActionName = currentAction != null && currentAction.actions.Count > 0 ? currentAction.actions[0].GetType().ToString() : "Idle";
