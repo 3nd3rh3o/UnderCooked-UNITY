@@ -25,20 +25,12 @@ public class BaseAgent : MonoBehaviour
         {
             currentNode = null;
         }
-<<<<<<< HEAD
         if (currentAction == null || currentAction.actions==null || currentAction.actions.Count == 0)
-=======
-        if (currentAction == null || currentAction.actions == null || currentAction.actions.Count == 0)
->>>>>>> 42827093851d1c3573b8e8dfa7fc0025952bbde1
         {
             currentAction = null;
             TaskTree.Node leaf = SelectTaskInGoal();
             BuildActionSeq(leaf);
-<<<<<<< HEAD
             if (leaf != null && (currentAction == null || currentAction.actions==null || currentAction.actions.Count == 0))
-=======
-            if (leaf != null && (currentAction == null || currentAction.actions == null || currentAction.actions.Count == 0))
->>>>>>> 42827093851d1c3573b8e8dfa7fc0025952bbde1
             {
                 leaf.inProgress = false;
                 return;
