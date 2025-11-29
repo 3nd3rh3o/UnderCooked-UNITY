@@ -109,11 +109,7 @@ public class ActionSeq
         return false;
     }
     public ActionSeq(TaskTree.Node node, Environment env)
-<<<<<<< HEAD
     { 
-=======
-    {
->>>>>>> 42827093851d1c3573b8e8dfa7fc0025952bbde1
         if (node == null)
             return;
         if (node.inProgress)
