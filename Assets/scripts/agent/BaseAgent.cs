@@ -1,6 +1,7 @@
 using System.Linq;
 using NUnit;
 using Unity.AI.Navigation;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,12 +17,14 @@ public class BaseAgent : MonoBehaviour
     public GameObject navSurf;
     private Vector3 wanderTarget;
 
-    void FixedUpdate()
+    void Update()
     {
         if (environment == null)
             return;
         if (currentNode != null && currentNode.isDead)
+        {
             currentNode = null;
+        }
         if (currentAction == null || currentAction.actions.Count == 0)
         {
             currentAction = null;
@@ -35,6 +38,10 @@ public class BaseAgent : MonoBehaviour
             }
             else if (currentAction != null)
             {
+                if (leaf != null)
+                {
+                    leaf.inProgress = true;
+                }
                 GetComponent<NavMeshAgent>().isStopped = true;
                 wanderTarget = Vector3.zero;
             }
@@ -47,7 +54,7 @@ public class BaseAgent : MonoBehaviour
             GetComponent<NavMeshAgent>().destination = wanderTarget;
         }
 
-        currentActionName = currentAction != null ? currentAction.actions[0].GetType().ToString() : "Idle";
+        currentActionName = currentAction != null && currentAction.actions.Count > 0 ? currentAction.actions[0].GetType().ToString() : "Idle";
         currentAction?.Execute(this);
     }
 
