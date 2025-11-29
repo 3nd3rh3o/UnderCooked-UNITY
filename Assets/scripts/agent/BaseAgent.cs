@@ -58,21 +58,12 @@ public class BaseAgent : MonoBehaviour
             GetComponent<NavMeshAgent>().isStopped = false;
             GetComponent<NavMeshAgent>().destination = wanderTarget;
         }
-<<<<<<< HEAD
         if (currentAction == null || currentAction.actions==null || currentAction.actions.Count == 0)
         {
             
             return;
         }
         
-=======
-        if (currentAction == null || currentAction.actions == null || currentAction.actions.Count == 0)
-        {
-
-            return;
-        }
-
->>>>>>> 42827093851d1c3573b8e8dfa7fc0025952bbde1
         currentActionName = currentAction != null && currentAction.actions.Count > 0 ? currentAction.actions[0].GetType().ToString() : "Idle";
         currentAction?.Execute(this);
     }
