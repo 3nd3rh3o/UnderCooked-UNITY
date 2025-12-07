@@ -94,7 +94,14 @@ public class UIController : MonoBehaviour
             {
                 if (env.goals[i].item != null)
                 {
-                    AddGoal(env.goals[i].initialTime, env.goals[i].item); // j'ai une fonction pour ça, donc je l'utilise
+                    VisualElement goalInstance = goalTemplate.Instantiate();
+                    root.Add(goalInstance);
+                    goalInstance.Q<ProgressBar>().title = goal.item.name;
+                    goalInstance.Q<ProgressBar>().highValue = goal.initialTime;
+                    goalInstance.Q<ProgressBar>().value = goal.remainingTime;
+                    if (goal.item.render != null)
+                        goalInstance.Q<VisualElement>("texture").style.backgroundImage = new StyleBackground(goal.item.render);
+                    goalElements.Add(goalInstance);
                 }
             }
         }
