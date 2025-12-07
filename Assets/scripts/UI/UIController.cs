@@ -22,12 +22,13 @@ public class UIController : MonoBehaviour
         goalInstance.Q<ProgressBar>().title = item.name;
         goalInstance.Q<ProgressBar>().highValue = initialTime;
         goalInstance.Q<ProgressBar>().value = initialTime;
-        goalInstance.Q<VisualElement>("texture").style.backgroundImage = new StyleBackground(item.render);
+        if (item.render != null)
+            goalInstance.Q<VisualElement>("texture").style.backgroundImage = new StyleBackground(item.render);
         env.goals.Add(new Goal(item, initialTime, null, env));
         goalElements.Add(goalInstance);
     }
 
-    public void UpdateScore(float currentMultiplier, float score)
+    public void UpdateScore(float currentMultiplier, float score) // UGLY
     {
         VisualElement scoreInfosRoot = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("scoreInfos");
         VisualElement scoreRoot = scoreInfosRoot.Q<VisualElement>("scoreContainer");
@@ -41,7 +42,7 @@ public class UIController : MonoBehaviour
 
 
 
-    void Start()
+    void Start() // UGLY
     {
         env.uIController = this;
         env.maxGoalsCompletedInARow = 0;
@@ -89,18 +90,11 @@ public class UIController : MonoBehaviour
                 goalVE.RemoveFromHierarchy();
             }
             goalElements.Clear();
-            foreach (var goal in env.goals)
+            for (int i = 0; i < env.goals.Count; i++)
             {
-                if (goal.item != null)
+                if (env.goals[i].item != null)
                 {
-                    VisualElement goalInstance = goalTemplate.Instantiate();
-                    root.Add(goalInstance);
-                    goalInstance.Q<ProgressBar>().title = goal.item.name;
-                    goalInstance.Q<ProgressBar>().highValue = goal.initialTime;
-                    goalInstance.Q<ProgressBar>().value = goal.remainingTime;
-                    if (goal.item.render != null)
-                        goalInstance.Q<VisualElement>("texture").style.backgroundImage = new StyleBackground(goal.item.render);
-                    goalElements.Add(goalInstance);
+                    AddGoal(env.goals[i].initialTime, env.goals[i].item); // j'ai une fonction pour ça, donc je l'utilise
                 }
             }
         }

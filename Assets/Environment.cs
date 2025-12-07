@@ -15,6 +15,7 @@ public class Environment : ScriptableObject
     public List<Recipe> knownRecipes;
     public List<StandInstance> deliveryStands;
     public List<Item> possibleOutputs = new();
+    // REFACTOR : tout mettre dans un autre ScriptableObject "GameSettings" ?
     public float maxMultiplier = 5f;
     public float minMultiplier = 1f;
     public float currentMultiplier = 1f;
